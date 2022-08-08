@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<record_update table="sys_script_include">
+  <sys_script_include action="INSERT_OR_UPDATE">
+    <access/>
+    <active>true</active>
+    <api_name>holidayRecord</api_name>
+    <caller_access/>
+    <client_callable>true</client_callable>
+    <description>生成休假月报</description>
+    <name>holidayRecord</name>
+    <script>var holidayRecord = Class.create();
+holidayRecord.prototype = Object.extendsObject(AbstractAjaxProcessor, {
+      // 生成休假月报
+      reduceLeaveRecord: function() {
+        var today = new Date().toJSON().split('T')[0];
+        var month = today.substring(0, today.length - 3);
+        var holidayGr = new GlideRecord('x_yunji_lm_holiday_complete');
+        holidayGr.addQuery('name', '!=', '');
+        holidayGr.query();
+        var personalHolidayList = {};
+        while (holidayGr.hasNext()) {
+          var dto = holidayGr.next();
+          var user = dto.name;
+          var holidayType = dto.holiday_type;
+          var duration = dto.duration;
+          var gr = new GlideRecord('x_yunji_lm_holiday_type');
+          gr.get(''+holidayType);
+          var displayVal = gr.getDisplayValue();
+          if (!personalHolidayList['' + user]) {
+            personalHolidayList['' + user] = {};
+          }
+          personalHolidayList['' + user]['' + displayVal] = Number((personalHolidayList['' + user] || {})['' + displayVal] || 0) + Number(duration);
+        }
+        Object.keys(personalHolidayList).forEach(function(name) {
+              var holidayGr = new GlideRecord('x_yunji_lm_leave_record');
+              holidayGr.setValue('staff_info', name); //用户名
+              gs.print('staff_info'+name);
+              holidayGr.setValue('year_month', month); //月份
+              gs.print('month'+month);
+              holidayGr.setValue('annual_leave', personalHolidayList[name]['年假'] || 0); //年假
+              gs.print('年假'+personalHolidayList[name]['年假'] || 0);
+              holidayGr.setValue('personal_leave', personalHolidayList[name]['事假'] || 0); //事假
+              gs.print('事假'+personalHolidayList[name]['事假'] || 0);
+              holidayGr.setValue('sick_leave', personalHolidayList[name]['病假'] || 0); //病假
+              gs.print('病假'+personalHolidayList[name]['病假'] || 0);
+              holidayGr.setValue('marriage_leave', personalHolidayList[name]['婚假'] || 0); //婚假
+              gs.print('婚假'+personalHolidayList[name]['婚假'] || 0);
+              holidayGr.setValue('maternity_leave', personalHolidayList[name]['产假'] || 0); //产假
+              gs.print('产假'+personalHolidayList[name]['产假'] || 0);
+              holidayGr.setValue('funeral_leave', personalHolidayList[name]['丧假'] || 0); //丧假
+              gs.print('丧假'+personalHolidayList[name]['丧假'] || 0);
+              holidayGr.insert();
+              gs.print('insert');
+            });
+      },
+})</script>
+    <sys_class_name>sys_script_include</sys_class_name>
+    <sys_created_by>admin</sys_created_by>
+    <sys_created_on>2022-07-14 17:28:44</sys_created_on>
+    <sys_effective/>
+    <sys_id>ba7290b4591a4fe8a59391517cabb2c2</sys_id>
+    <sys_mod_count>1</sys_mod_count>
+    <sys_name/>
+    <sys_package/>
+    <sys_policy/>
+    <sys_scope>09fbd6acc21d4dd8b5cc4bc8d396f6a5</sys_scope>
+    <sys_update_name/>
+    <sys_updated_by>admin</sys_updated_by>
+    <sys_updated_on>2022-07-27 21:20:45</sys_updated_on>
+  </sys_script_include>
+</record_update>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<record_update table="sys_script_include">
+  <sys_script_include action="INSERT_OR_UPDATE">
+    <access/>
+    <active>true</active>
+    <api_name>StartHolidayWorkflow</api_name>
+    <caller_access/>
+    <client_callable>true</client_callable>
+    <description>员工发起请假流程</description>
+    <name>StartHolidayWorkflow</name>
+    <script>gs.include('Workflow');
+
+var StartHolidayWorkflow = Class.create();
+
+StartHolidayWorkflow.prototype = Object.extendsObject(AbstractAjaxProcessor, {
+   startDeviceUp: function() {
+       var gr = new GlideRecord('x_yunji_lm_holiday_apply');
+       var recordId = this.getParameter('recordId'); 
+     	 gr.get(recordId);
+     
+       var wf = new Workflow();
+       var wfId = wf.getWorkflowFromName('申请请假流程');
+       var vars  = {
+         'recordId': recordId
+       };
+
+       wf.startFlow(wfId, gr, vars);
+   }
+});</script>
+    <sys_class_name>sys_script_include</sys_class_name>
+    <sys_created_by>admin</sys_created_by>
+    <sys_created_on>2022-07-13 18:32:48</sys_created_on>
+    <sys_effective>true</sys_effective>
+    <sys_id>7fd21cd9bdb04809a7ff1082052d7194</sys_id>
+    <sys_mod_count>1</sys_mod_count>
+    <sys_name/>
+    <sys_package/>
+    <sys_policy/>
+    <sys_scope>09fbd6acc21d4dd8b5cc4bc8d396f6a5</sys_scope>
+    <sys_update_name/>
+    <sys_updated_by>admin</sys_updated_by>
+    <sys_updated_on>2022-07-13 18:32:48</sys_updated_on>
+  </sys_script_include>
+</record_update>

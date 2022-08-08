@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<record_update table="sys_choice">
+  <sys_choice action="INSERT_OR_UPDATE">
+    <dependent_value/>
+    <element>approval_status</element>
+    <hint/>
+    <inactive>false</inactive>
+    <label>审批失败</label>
+    <language>en</language>
+    <name>x_yunji_check_repair</name>
+    <sequence/>
+    <synonyms/>
+    <sys_class_name>sys_choice</sys_class_name>
+    <sys_created_by>admin</sys_created_by>
+    <sys_created_on>2022-07-14 19:44:06</sys_created_on>
+    <sys_domain>global</sys_domain>
+    <sys_domain_path>/</sys_domain_path>
+    <sys_effective>true</sys_effective>
+    <sys_id>0473d547a2f5459eb4753e5599f1bb8a</sys_id>
+    <sys_mod_count>1</sys_mod_count>
+    <sys_updated_by>admin</sys_updated_by>
+    <sys_updated_on>2022-07-14 19:44:06</sys_updated_on>
+    <value>2</value>
+  </sys_choice>
+  <sys_choice action="INSERT_OR_UPDATE">
+    <dependent_value/>
+    <element>approval_status</element>
+    <hint/>
+    <inactive>false</inactive>
+    <label>待审批</label>
+    <language>en</language>
+    <name>x_yunji_check_repair</name>
+    <sequence/>
+    <synonyms/>
+    <sys_class_name>sys_choice</sys_class_name>
+    <sys_created_by>admin</sys_created_by>
+    <sys_created_on>2022-07-14 19:43:39</sys_created_on>
+    <sys_domain>global</sys_domain>
+    <sys_domain_path>/</sys_domain_path>
+    <sys_effective/>
+    <sys_id>695919fc3cd644bba1ae71280936471a</sys_id>
+    <sys_mod_count>1</sys_mod_count>
+    <sys_updated_by>admin</sys_updated_by>
+    <sys_updated_on>2022-07-14 19:43:39</sys_updated_on>
+    <value>0</value>
+  </sys_choice>
+  <sys_choice action="INSERT_OR_UPDATE">
+    <dependent_value/>
+    <element>approval_status</element>
+    <hint/>
+    <inactive>false</inactive>
+    <label>审批成功</label>
+    <language>en</language>
+    <name>x_yunji_check_repair</name>
+    <sequence/>
+    <synonyms/>
+    <sys_class_name>sys_choice</sys_class_name>
+    <sys_created_by>admin</sys_created_by>
+    <sys_created_on>2022-07-14 19:43:55</sys_created_on>
+    <sys_domain>global</sys_domain>
+    <sys_domain_path>/</sys_domain_path>
+    <sys_effective/>
+    <sys_id>1de4c46758a34b95ae24a6d8371809de</sys_id>
+    <sys_mod_count>1</sys_mod_count>
+    <sys_updated_by>admin</sys_updated_by>
+    <sys_updated_on>2022-07-14 19:43:55</sys_updated_on>
+    <value>1</value>
+  </sys_choice>
+</record_update>

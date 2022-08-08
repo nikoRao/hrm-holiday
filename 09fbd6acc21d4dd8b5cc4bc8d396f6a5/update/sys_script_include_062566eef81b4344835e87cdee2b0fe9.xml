@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<record_update table="sys_script_include">
+  <sys_script_include action="INSERT_OR_UPDATE">
+    <access/>
+    <active>true</active>
+    <api_name>HolidayUtils</api_name>
+    <caller_access/>
+    <client_callable>true</client_callable>
+    <description>员工假期管理</description>
+    <name>HolidayUtils</name>
+    <script>var HolidayUtils = Class.create();
+
+HolidayUtils.prototype = Object.extendsObject(AbstractAjaxProcessor, {
+    initializeHolidays: function() {
+        var gr = new GlideRecord('x_yunji_lm_holiday_type');
+        gr.query();
+        while(gr.hasNext()) {
+            gr.next();
+        }
+    },
+    addHolidays: function() {
+        var holidayType = this.getParameter('holiday_type');
+        var duration = this.getParameter('duration');
+        var userId = this.getParameter('user_id');
+        var holidaySurplus = new GlideRecord('x_yunji_lm_holiday_surplus');
+      
+        holidaySurplus.addQuery('name', userId);
+        holidaySurplus.addQuery('holiday_type', holidayType);
+        holidaySurplus.query();
+      
+        while(holidaySurplus.hasNext()) {
+          holidaySurplus.next();
+          holidaySurplus.setValue('surplus_days', holidaySurplus.getValue('surplus_days') + duration);
+          holidaySurplus.setValue('holiday_type', holidaySurplus.getValue('holiday_type'));
+          holidaySurplus.setValue('name', holidaySurplus.getValue('name'));
+          holidaySurplus.update();
+       }  
+    },
+    decreaseHolidays: function() {
+        var holidayType = this.getParameter('holiday_type');
+        var duration = this.getParameter('duration');
+        var userId = this.getParameter('user_id');
+        var holidaySurplus = new GlideRecord('x_yunji_lm_holiday_surplus');
+
+        holidaySurplus.addQuery('name', userId);
+        holidaySurplus.addQuery('holiday_type', holidayType);
+        holidaySurplus.query();
+      
+        while(holidaySurplus.hasNext()) {
+          holidaySurplus.next();
+          holidaySurplus.setValue('surplus_days', holidaySurplus.getValue('surplus_days') - duration);
+          holidaySurplus.setValue('holiday_type', holidaySurplus.getValue('holiday_type'));
+          holidaySurplus.setValue('name', holidaySurplus.getValue('name'));
+          holidaySurplus.update();
+       }  
+    }
+});</script>
+    <sys_class_name>sys_script_include</sys_class_name>
+    <sys_created_by>admin</sys_created_by>
+    <sys_created_on>2022-07-14 16:21:13</sys_created_on>
+    <sys_effective/>
+    <sys_id>062566eef81b4344835e87cdee2b0fe9</sys_id>
+    <sys_mod_count>1</sys_mod_count>
+    <sys_name/>
+    <sys_package/>
+    <sys_policy/>
+    <sys_scope>09fbd6acc21d4dd8b5cc4bc8d396f6a5</sys_scope>
+    <sys_update_name/>
+    <sys_updated_by>admin</sys_updated_by>
+    <sys_updated_on>2022-07-14 23:06:09</sys_updated_on>
+  </sys_script_include>
+</record_update>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<record_update table="sys_app_module">
+  <sys_app_module action="INSERT_OR_UPDATE">
+    <active>false</active>
+    <application>ae7a9c9f4e6f4e0a901cac62d4718f04</application>
+    <assessment/>
+    <device_type/>
+    <filter>""</filter>
+    <hint/>
+    <homepage/>
+    <image/>
+    <link_type>LIST</link_type>
+    <map_page/>
+    <mobile_title/>
+    <mobile_view_name>Mobile</mobile_view_name>
+    <name>x_yunji_check_repair</name>
+    <order>8.00</order>
+    <override_menu_roles>false</override_menu_roles>
+    <query>nameLIKEjavascript:if(!gs.hasRole("admin")){gs.getUserID();}else{"";}</query>
+    <report/>
+    <roles>""</roles>
+    <sys_class_name>sys_app_module</sys_class_name>
+    <sys_created_by>admin</sys_created_by>
+    <sys_created_on>2022-07-13 11:35:54</sys_created_on>
+    <sys_domain>global</sys_domain>
+    <sys_domain_path>/</sys_domain_path>
+    <sys_effective/>
+    <sys_id>fb1362b48d024266b7f43acdb94b7684</sys_id>
+    <sys_mod_count>1</sys_mod_count>
+    <sys_name/>
+    <sys_overrides/>
+    <sys_package/>
+    <sys_policy/>
+    <sys_scope>09fbd6acc21d4dd8b5cc4bc8d396f6a5</sys_scope>
+    <sys_update_name/>
+    <sys_updated_by>admin</sys_updated_by>
+    <sys_updated_on>2022-08-03 16:10:13</sys_updated_on>
+    <timeline_page/>
+    <title>考勤补卡</title>
+    <uncancelable>false</uncancelable>
+    <view_name>考勤补卡</view_name>
+    <window_name/>
+  </sys_app_module>
+</record_update>

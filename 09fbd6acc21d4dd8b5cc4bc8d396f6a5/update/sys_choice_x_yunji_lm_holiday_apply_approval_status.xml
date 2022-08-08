@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<record_update table="sys_choice">
+  <sys_choice action="INSERT_OR_UPDATE">
+    <dependent_value/>
+    <element>approval_status</element>
+    <hint/>
+    <inactive>false</inactive>
+    <label>审批已完成</label>
+    <language>en</language>
+    <name>x_yunji_lm_holiday_apply</name>
+    <sequence/>
+    <synonyms/>
+    <sys_class_name>sys_choice</sys_class_name>
+    <sys_created_by>admin</sys_created_by>
+    <sys_created_on>2022-07-14 14:57:07</sys_created_on>
+    <sys_domain>global</sys_domain>
+    <sys_domain_path>/</sys_domain_path>
+    <sys_effective>true</sys_effective>
+    <sys_id>9244d8d2739c49399e4964b5d89761c6</sys_id>
+    <sys_mod_count>1</sys_mod_count>
+    <sys_updated_by>admin</sys_updated_by>
+    <sys_updated_on>2022-07-14 14:57:07</sys_updated_on>
+    <value>4</value>
+  </sys_choice>
+  <sys_choice action="INSERT_OR_UPDATE">
+    <dependent_value/>
+    <element>approval_status</element>
+    <hint/>
+    <inactive>false</inactive>
+    <label>待审批</label>
+    <language>en</language>
+    <name>x_yunji_lm_holiday_apply</name>
+    <sequence/>
+    <synonyms/>
+    <sys_class_name>sys_choice</sys_class_name>
+    <sys_created_by>admin</sys_created_by>
+    <sys_created_on>2022-07-12 19:42:12</sys_created_on>
+    <sys_domain>global</sys_domain>
+    <sys_domain_path>/</sys_domain_path>
+    <sys_effective/>
+    <sys_id>acf46fbf37a54180900b1ae2133ee230</sys_id>
+    <sys_mod_count>1</sys_mod_count>
+    <sys_updated_by>admin</sys_updated_by>
+    <sys_updated_on>2022-07-12 19:42:12</sys_updated_on>
+    <value>0</value>
+  </sys_choice>
+  <sys_choice action="INSERT_OR_UPDATE">
+    <dependent_value/>
+    <element>approval_status</element>
+    <hint/>
+    <inactive>false</inactive>
+    <label>审批已驳回</label>
+    <language>en</language>
+    <name>x_yunji_lm_holiday_apply</name>
+    <sequence/>
+    <synonyms/>
+    <sys_class_name>sys_choice</sys_class_name>
+    <sys_created_by>admin</sys_created_by>
+    <sys_created_on>2022-07-12 19:44:41</sys_created_on>
+    <sys_domain>global</sys_domain>
+    <sys_domain_path>/</sys_domain_path>
+    <sys_effective/>
+    <sys_id>13234c16b1f14a1ebfd7d87c40a8f3b2</sys_id>
+    <sys_mod_count>1</sys_mod_count>
+    <sys_updated_by>admin</sys_updated_by>
+    <sys_updated_on>2022-07-12 19:44:41</sys_updated_on>
+    <value>3</value>
+  </sys_choice>
+  <sys_choice action="INSERT_OR_UPDATE">
+    <dependent_value/>
+    <element>approval_status</element>
+    <hint/>
+    <inactive>false</inactive>
+    <label>上级领导已审批</label>
+    <language>en</language>
+    <name>x_yunji_lm_holiday_apply</name>
+    <sequence/>
+    <synonyms/>
+    <sys_class_name>sys_choice</sys_class_name>
+    <sys_created_by>admin</sys_created_by>
+    <sys_created_on>2022-07-14 14:55:24</sys_created_on>
+    <sys_domain>global</sys_domain>
+    <sys_domain_path>/</sys_domain_path>
+    <sys_effective/>
+    <sys_id>284ca1fc87934c9ab5967307401f0bd1</sys_id>
+    <sys_mod_count>1</sys_mod_count>
+    <sys_updated_by>admin</sys_updated_by>
+    <sys_updated_on>2022-07-14 14:55:24</sys_updated_on>
+    <value>1</value>
+  </sys_choice>
+  <sys_choice action="INSERT_OR_UPDATE">
+    <dependent_value/>
+    <element>approval_status</element>
+    <hint/>
+    <inactive>false</inactive>
+    <label>部门领导已审批</label>
+    <language>en</language>
+    <name>x_yunji_lm_holiday_apply</name>
+    <sequence/>
+    <synonyms/>
+    <sys_class_name>sys_choice</sys_class_name>
+    <sys_created_by>admin</sys_created_by>
+    <sys_created_on>2022-07-14 14:56:09</sys_created_on>
+    <sys_domain>global</sys_domain>
+    <sys_domain_path>/</sys_domain_path>
+    <sys_effective/>
+    <sys_id>7223612cb17e4cdd85552ede507a06a0</sys_id>
+    <sys_mod_count>1</sys_mod_count>
+    <sys_updated_by>admin</sys_updated_by>
+    <sys_updated_on>2022-07-14 14:56:09</sys_updated_on>
+    <value>2</value>
+  </sys_choice>
+  <sys_choice action="DELETE">
+    <dependent_value/>
+    <element>approval_status</element>
+    <hint/>
+    <inactive>false</inactive>
+    <label>审批已同意</label>
+    <language>en</language>
+    <name>x_yunji_lm_holiday_apply</name>
+    <sequence/>
+    <synonyms/>
+    <sys_class_name>sys_choice</sys_class_name>
+    <sys_created_by>admin</sys_created_by>
+    <sys_created_on>2022-07-12 19:44:18</sys_created_on>
+    <sys_domain>global</sys_domain>
+    <sys_domain_path>/</sys_domain_path>
+    <sys_effective/>
+    <sys_id>7b32132b7401455eb5a0755c4f5ea492</sys_id>
+    <sys_mod_count>1</sys_mod_count>
+    <sys_updated_by>admin</sys_updated_by>
+    <sys_updated_on>2022-07-12 19:44:18</sys_updated_on>
+    <value>2</value>
+  </sys_choice>
+  <sys_choice action="DELETE">
+    <dependent_value/>
+    <element>approval_status</element>
+    <hint/>
+    <inactive>false</inactive>
+    <label>审批中</label>
+    <language>en</language>
+    <name>x_yunji_lm_holiday_apply</name>
+    <sequence/>
+    <synonyms/>
+    <sys_class_name>sys_choice</sys_class_name>
+    <sys_created_by>admin</sys_created_by>
+    <sys_created_on>2022-07-12 19:43:15</sys_created_on>
+    <sys_domain>global</sys_domain>
+    <sys_domain_path>/</sys_domain_path>
+    <sys_effective/>
+    <sys_id>818c82b135f149b49956db1098702180</sys_id>
+    <sys_mod_count>1</sys_mod_count>
+    <sys_updated_by>admin</sys_updated_by>
+    <sys_updated_on>2022-07-12 19:43:15</sys_updated_on>
+    <value>1</value>
+  </sys_choice>
+</record_update>

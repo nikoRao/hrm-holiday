@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<record_update table="sys_script_include">
+  <sys_script_include action="INSERT_OR_UPDATE">
+    <access/>
+    <active>true</active>
+    <api_name>initEmployeeHoliday</api_name>
+    <caller_access/>
+    <client_callable>true</client_callable>
+    <description>初始化员工假期</description>
+    <name>initEmployeeHoliday</name>
+    <script>var initEmployeeHoliday = Class.create();
+initEmployeeHoliday.prototype = Object.extendsObject(AbstractAjaxProcessor, {
+  // 初始化员工假期
+  initHoliday: function() {
+    var employmentStartDate = "";    //入职时间
+    var onboardGr = new GlideRecord('hrm_onboarding_info');
+    onboardGr.addQuery('user', '' + gs.getUserID());
+    onboardGr.query();
+    while (onboardGr.hasNext()) {
+      onboardGr.next();
+      employmentStartDate = ('' + onboardGr.getValue('employment_start_date')).split('T')[0];
+      gs.print("###### employmentStartDate: " + employmentStartDate);
+    }
+    var today = new Date().toJSON().split('T')[0];
+    var holidayGrPlus = new GlideRecord('x_yunji_lm_holiday_surplus');
+    var holidayGr = new GlideRecord('x_yunji_lm_holiday_rule');
+    holidayGr.query();
+    while (holidayGr.hasNext()) {
+      holidayGr.next();
+      var holidayGr1 = new GlideRecord('x_yunji_lm_holiday_surplus');
+      holidayGr1.addQuery('name', '' + gs.getUserID());
+      holidayGr1.addQuery('holiday_type', String(holidayGr.getValue('name')));
+      holidayGr1.query();
+      if (holidayGr1.resultSet.total == 0) {
+        gs.print("######### gs.getUserID():" + gs.getUserID());
+        var surplus_days = java.lang.Double.valueOf(holidayGr.getValue('holiday_unit'));
+        if ("年假" == holidayGr.getValue('name')) {
+          var hrGr = new GlideRecord('sn_hr_core_profile');
+          hrGr.addQuery('user', '' + gs.getUserID());
+          hrGr.query();
+          while (hrGr.hasNext()) {
+            hrGr.next();
+            var first_working_date = hrGr.getValue('first_working_date');
+            var diffYear = this.getDateYearSub(String(first_working_date), String(today));
+            gs.print("######### diffYear" + diffYear);
+            if ("" != employmentStartDate){   //入职时间不为空
+              if (1 &lt;= diffYear &amp;&amp; diffYear &lt; 10) {
+                surplus_days = this.getRealAnnualLeave(employmentStartDate, today, 5);
+              }
+              if (10 &lt;= diffYear &amp;&amp; diffYear &lt; 20) {
+                surplus_days = this.getRealAnnualLeave(employmentStartDate, today, 10);
+              }
+              if (diffYear &gt;= 20) {
+                surplus_days = this.getRealAnnualLeave(employmentStartDate, today, 15);
+              }
+            }
+          }
+        }
+        gs.print("user:" + gs.getUserID());
+        gs.print("holiday_unit:" + holidayGr.getValue('holiday_unit'));
+
+        holidayGrPlus.setValue('name', gs.getUserID()); //用户名
+        holidayGrPlus.setValue('holiday_type', String(holidayGr.getValue('name')));
+        holidayGrPlus.setValue('company_base', String(holidayGr.getValue('company_base')));
+        holidayGrPlus.setValue('surplus_days', surplus_days);
+        holidayGrPlus.insert();
+        gs.print('insert');
+      }
+    }
+  },
+
+  getRealAnnualLeave: function(start, end, legal) {
+    var dateSpan, iDays;
+    start = Date.parse(start);
+    end = Date.parse(end);
+    dateSpan = end - start;
+    dateSpan = Math.abs(dateSpan);
+    iDays = Math.floor(dateSpan / (24 * 3600 * 1000));
+    var realAnnualLeave = Math.floor(iDays / 365 * legal)
+    gs.print(" iDays 实际年假:" + Math.floor(iDays / 365 * legal));
+    return realAnnualLeave
+  },
+
+  getDateYearSub: function(startDateStr, endDateStr) {
+    var day = 24 * 60 * 60 * 1000;
+
+    var sDate = new Date(Date.parse(startDateStr.replace(/-/g, "/")));
+    var eDate = new Date(Date.parse(endDateStr.replace(/-/g, "/")));
+
+    //得到前一天(算头不算尾)
+    sDate = new Date(sDate.getTime() - day);
+    //获得各自的年、月、日
+    var sY = sDate.getFullYear();
+    var sM = sDate.getMonth() + 1;
+    var sD = sDate.getDate();
+    var eY = eDate.getFullYear();
+    var eM = eDate.getMonth() + 1;
+    var eD = eDate.getDate();
+
+    if (eY &gt; sY &amp;&amp; sM &gt;= eM) {
+      return eY - sY;
+    } else if (eY &gt; sY &amp;&amp; sM &lt; eM) {
+      return eY - sY - 1;
+    } else {
+      //alert("两个日期之间并非整年，请重新选择");
+      return 0;
+    }
+  }
+});</script>
+    <sys_class_name>sys_script_include</sys_class_name>
+    <sys_created_by>admin</sys_created_by>
+    <sys_created_on>2022-07-28 13:51:20</sys_created_on>
+    <sys_effective/>
+    <sys_id>ea4be5c9119a4da5ac8b91419212f20f</sys_id>
+    <sys_mod_count>1</sys_mod_count>
+    <sys_name/>
+    <sys_package/>
+    <sys_policy/>
+    <sys_scope>09fbd6acc21d4dd8b5cc4bc8d396f6a5</sys_scope>
+    <sys_update_name/>
+    <sys_updated_by>admin</sys_updated_by>
+    <sys_updated_on>2022-08-08 09:15:53</sys_updated_on>
+  </sys_script_include>
+</record_update>

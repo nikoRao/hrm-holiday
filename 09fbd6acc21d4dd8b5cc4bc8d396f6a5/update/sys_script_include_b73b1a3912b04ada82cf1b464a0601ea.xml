@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<record_update table="sys_script_include">
+  <sys_script_include action="INSERT_OR_UPDATE">
+    <access/>
+    <active>true</active>
+    <api_name>attendanceRecord</api_name>
+    <caller_access/>
+    <client_callable>true</client_callable>
+    <description>假勤月报生成</description>
+    <name>attendanceRecord</name>
+    <script>var attendanceRecord = Class.create();
+attendanceRecord.prototype = Object.extendsObject(AbstractAjaxProcessor, {
+  //生成考勤月报
+  reduceAttendanceRecord: function() {
+    //当前月份
+    var month = this.getParameter('month');
+    gs.print("month:" + month);
+    var firstMonthDay = month + "-01 00:00:00";
+    var endMonthDay = month + "-31 23:59:00";
+
+    //当月所有考勤用户
+    var allUser = [];
+    var allGr = new GlideRecord('x_yunji_check_info');
+    allGr.addQuery('plan_check_time', '&gt;', firstMonthDay);
+    allGr.addQuery('plan_check_time', '&lt;', endMonthDay);
+    allGr.query();
+    while (allGr.hasNext()) {
+      var dto = allGr.next();
+      var user = ''+dto.user;
+      if(!allUser.includes(user)){
+        allUser.push(user);
+      }
+    }
+
+    //上班打卡
+    var attendance = {};
+    var onDutyGr = new GlideRecord('x_yunji_check_info');
+    onDutyGr.addQuery('check_type', 'OnDuty');
+    onDutyGr.addQuery('plan_check_time', '&gt;', firstMonthDay);
+    onDutyGr.addQuery('plan_check_time', '&lt;', endMonthDay);
+    onDutyGr.addQuery('time_result', '!=', 'NotSigned');
+    onDutyGr.query();
+    var onDutyUser = {};
+    while (onDutyGr.hasNext()) {
+      var dto = onDutyGr.next();
+      var user = dto.user;
+      onDutyUser['' + user] = (onDutyUser['' + user] || 0) + 1;
+      var planCheckDay = String(dto.plan_check_time).split('T')[0];
+      if (attendance['' + user] == null || attendance['' + user] == undefined) {
+        attendance['' + user] = [planCheckDay];
+      } else {
+        (attendance['' + user]).push(planCheckDay);
+      }
+      gs.print(attendance['' + user]);
+    }
+
+    //下班打卡
+    var offDutyGr = new GlideRecord('x_yunji_check_info');
+    offDutyGr.addQuery('check_type', 'OffDuty');
+    offDutyGr.addQuery('plan_check_time', '&gt;', firstMonthDay);
+    offDutyGr.addQuery('plan_check_time', '&lt;', endMonthDay);
+    offDutyGr.addQuery('time_result', '!=', 'NotSigned');
+    offDutyGr.query();
+    var offDutyUser = {};
+    while (offDutyGr.hasNext()) {
+      var dto = offDutyGr.next();
+      var user = dto.user;
+      offDutyUser['' + user] = (offDutyUser['' + user] || 0) + 1;
+      var planCheckDay = String(dto.plan_check_time).split('T')[0];
+      if (attendance['' + user] == null || attendance['' + user] == undefined) {
+        attendance['' + user] = [planCheckDay];
+      } else {
+        (attendance['' + user]).push(planCheckDay);
+      }
+      gs.print(attendance['' + user]);
+    }
+
+    Object.keys(attendance).forEach(function(user) {
+      var planCheckDayArr = attendance[user];
+      var len = planCheckDayArr.length;
+      var newArr = []
+      planCheckDayArr.forEach(item =&gt; {
+        if (!newArr.includes(item)) {
+          newArr.push(item)
+        }
+      })
+      attendance[user] = newArr.length || 0;
+    });
+
+    //下班未打卡
+    var notOffDutySignedGr = new GlideRecord('x_yunji_check_info');
+    notOffDutySignedGr.addQuery('time_result', 'NotSigned');
+    notOffDutySignedGr.addQuery('plan_check_time', '&gt;', firstMonthDay);
+    notOffDutySignedGr.addQuery('plan_check_time', '&lt;', endMonthDay);
+    notOffDutySignedGr.addQuery('check_type', 'OffDuty');
+    notOffDutySignedGr.query();
+    var notOffDutySignedUser = {};
+    while (notOffDutySignedGr.hasNext()) {
+      var dto = notOffDutySignedGr.next();
+      var user = dto.user;
+      var planCheckDay = String(dto.plan_check_time).split('T')[0];
+      if (notOffDutySignedUser['' + user] == null || notOffDutySignedUser['' + user] == undefined) {
+        notOffDutySignedUser['' + user] = [planCheckDay];
+      } else {
+        (notOffDutySignedUser['' + user]).push(planCheckDay);
+      }
+      gs.print("notOffDutySignedUser['' + user]：" + notOffDutySignedUser['' + user]);
+    }
+
+    //旷工
+    var absenteeism = {};
+    Object.keys(notOffDutySignedUser).forEach(function(user) {
+      var notOnDutySignedGr = new GlideRecord('x_yunji_check_info');
+      notOnDutySignedGr.addQuery('time_result', 'NotSigned');
+      notOnDutySignedGr.addQuery('plan_check_time', '&gt;', firstMonthDay);
+      notOnDutySignedGr.addQuery('plan_check_time', '&lt;', endMonthDay);
+      notOnDutySignedGr.addQuery('check_type', 'OnDuty');
+      notOnDutySignedGr.addQuery('user', user);
+      notOnDutySignedGr.query();
+
+      var notOnDutySignedDate = [];
+      while (notOnDutySignedGr.hasNext()) {
+        var vo = notOnDutySignedGr.next();
+        var onDutyPlanCheckDay = String(vo.plan_check_time).split('T')[0];
+        notOnDutySignedDate.push(onDutyPlanCheckDay);
+      }
+      var notOffDutySignedDate = notOffDutySignedUser[user];
+      gs.print("################# notOnDutySignedDate: " + notOnDutySignedDate + ", " + notOnDutySignedDate.length)
+      for (var i = 0; i &lt; notOnDutySignedDate.length; i++) {
+        for (var j = 0; j &lt; notOffDutySignedDate.length; j++) {
+          if (notOnDutySignedDate[i] == notOffDutySignedDate[j]) {
+            absenteeism['' + user] = (absenteeism['' + user] || 0) + 1;
+          }
+        }
+      }
+    });
+    var absenteeismUser = [];
+    Object.keys(absenteeism).forEach((user) =&gt; {
+      absenteeismUser.push(user);
+    });
+
+    //本月离职员工
+    var resign = {};
+    var resignUser = [];
+    var lateGr = new GlideRecord('u_hrm_resign_case');
+    lateGr.addQuery('last_day', '&gt;', firstMonthDay);
+    lateGr.addQuery('last_day', '&lt;', endMonthDay);
+    lateGr.query();
+    while (lateGr.hasNext()) {
+      var item = lateGr.next();
+      var user = '' + item.user;
+      resignUser.push(user);
+      resign[user] = item.last_day;
+    }
+
+    //统计考勤月报
+    for (var i = 0, len = allUser.length; i &lt; len; i++) {
+      var name = '' + allUser[i];
+      gs.print("firstMonthDay: " + firstMonthDay + (typeof firstMonthDay));
+      gs.print("endMonthDay: " + endMonthDay + (typeof endMonthDay));
+
+      var lateGr = new GlideRecord('x_yunji_check_info');
+      lateGr.addQuery('time_result', 'Late');
+      lateGr.addQuery('plan_check_time', '&gt;', firstMonthDay);
+      lateGr.addQuery('plan_check_time', '&lt;', endMonthDay);
+      lateGr.addQuery('user', name);
+      lateGr.query();
+      var lateTime = 0;
+      while (lateGr.hasNext()) {
+        var item = lateGr.next();
+        lateTime = lateTime + java.lang.Integer.valueOf(item.late_early_time)
+      }
+
+      var earlyGr = new GlideRecord('x_yunji_check_info');
+      earlyGr.addQuery('time_result', 'Early');
+      earlyGr.addQuery('plan_check_time', '&gt;', firstMonthDay);
+      earlyGr.addQuery('plan_check_time', '&lt;', endMonthDay);
+      earlyGr.addQuery('user', name);
+      earlyGr.query();
+      var earlyTime = 0;
+      while (earlyGr.hasNext()) {
+        var item = earlyGr.next();
+        earlyTime = earlyTime + java.lang.Integer.valueOf(item.late_early_time);
+      }
+
+      var notSignerGr = new GlideRecord('x_yunji_check_info');
+      notSignerGr.addQuery('time_result', 'NotSigned');
+      notSignerGr.addQuery('plan_check_time', '&gt;', firstMonthDay);
+      notSignerGr.addQuery('plan_check_time', '&lt;', endMonthDay);
+      notSignerGr.addQuery('user', name);
+      notSignerGr.query();
+      var notSignerCount = 0;
+      while (notSignerGr.hasNext()) {
+        var item = notSignerGr.next();
+        notSignerCount = notSignerCount + 1;
+      }
+
+      var leaveTimeLess = 0; //扣去旷工的天数
+      var leaveNotSigned = 0; //扣去漏打卡的次数
+      var totalDuration = 0; //当月休假总时长
+      //查询请假时长
+      var completeGr = new GlideRecord('x_yunji_lm_holiday_complete');
+      completeGr.addQuery('start_time', '&gt;', firstMonthDay);
+      completeGr.addQuery('plan_check_time', '&lt;', endMonthDay);
+      completeGr.addQuery('name', name);
+      completeGr.query();
+      while (completeGr.hasNext()) {
+        var item = completeGr.next();
+        var duration = java.lang.Double.valueOf(item.duration);
+        var startTime = (String(item.start_time)).split('T')[0];
+        var endTime = (String(item.end_time)).split('T')[0];
+        if (duration &lt;= 0.5) {
+          leaveNotSigned = leaveNotSigned + 1.0;
+        } else if (duration == 1 &amp;&amp; startTime == endTime) {
+          leaveTimeLess = leaveTimeLess + 1;
+        } else if (duration &gt;= 1 &amp;&amp; startTime != endTime) {
+          var diffDays = getDiffDay(endTime, startTime);
+          if (diffDays - duration == 0) {
+            leaveTimeLess = leaveTimeLess + duration;
+            gs.print("#####");
+          } else if (diffDays - duration &gt;= 2) {
+            leaveTimeLess = leaveTimeLess + duration - (diffDays - duration);
+            gs.print("#####");
+          } else if (diffDays - duration &gt; 1) {
+            if (isMorning(startTime) &amp;&amp; !isMorning(startTime)) {
+              leaveTimeLess = diffDays - duration;
+            }
+            //if(!isMorning(startTime) &amp;&amp; isMorning(startTime)){
+            //  leaveTimeLess = diffDays - duration;              
+            //}
+            //if(isMorning(startTime) &amp;&amp; !isMorning(startTime)){
+            //  
+            //}
+            //if(!isMorning(startTime) &amp;&amp; !isMorning(startTime)){
+            //  
+            //}               
+          }
+        }
+        totalDuration = totalDuration + duration;
+      }
+
+      resignUser.forEach((item, index, resignUser) =&gt; {
+        if (name == itme) {
+          var lastDay = resign[user];
+          var endDay = String(vo.endMonthDay).split('T')[0];
+          var diffDays = getDiffDay(endDay, lastDay);
+          leaveTimeLess = leaveTimeLess + diffDays;
+        }
+      })
+
+      var attendanceGr = new GlideRecord('x_yunji_lm_attendance_record');
+      attendanceGr.setValue('name', name); //用户名
+      attendanceGr.setValue('year_month', month); //月份
+      attendanceGr.setValue('attendance', 23.0); //应出勤天数
+      attendanceGr.setValue('holiday', 0.0); //法定假日天数
+
+      // attendanceGr.setValue('leave', totalDuration); //请假天数
+
+      attendanceGr.setValue('late_time', lateTime || 0); //迟到时长
+      attendanceGr.setValue('late_number', lateGr.resultSet.total || 0); //迟到次数
+      attendanceGr.setValue('premature_time', earlyTime || 0); //早退时长
+      attendanceGr.setValue('premature_number', earlyGr.resultSet.total || 0); //早退次数
+
+      //旷工时长   
+      var timeless_time = (absenteeism[name] - leaveTimeLess) || 0;
+      gs.print("########### timeless_time ：" + timeless_time);
+      attendanceGr.setValue('timeless_time', timeless_time);
+
+      //缺卡次数
+      notSignerCount = notSignerCount - timeless_time - leaveTimeLess * 2 - leaveNotSigned;
+      gs.print("########### not_signed_times ：" + notSignerCount);
+      attendanceGr.setValue('not_signed_times', notSignerCount);
+
+      //工作日实出勤天数
+      var work_attendance = attendance[name] || 0;
+      gs.print("########### work_attendance：" + work_attendance);
+      attendanceGr.setValue('work_attendance', work_attendance);
+
+      //attendanceGr.addQuery('name', name);
+      //attendanceGr.addQuery('month', String(month));
+      //attendanceGr.query();
+      //if (attendanceGr.resultSet.total == 0) {
+      attendanceGr.insert();
+      //} else {
+      //  attendanceGr.update();
+      //}
+    }
+  },
+
+  // 计算两个日期之间的差值
+  getDiffDay: function(date_1, date_2) {
+    var totalDays, diffDate
+    var myDate_1 = Date.parse(date_1)
+    var myDate_2 = Date.parse(date_2)
+    // 将两个日期都转换为毫秒格式，然后做差
+    diffDate = Math.abs(myDate_1 - myDate_2) // 取相差毫秒数的绝对值
+    totalDays = Math.floor(diffDate / (1000 * 3600 * 24));
+    return totalDays // 相差的天数
+  },
+
+  //是否是上午
+  isMorning: function(date_1) {
+    var realDate = date_1;
+    var tempDate = String(realDate).split('T')[0];
+    realDate = realDate.replace("T", " ");
+    var noonDate = tempDate + " 12:30:00";
+    gs.print(realDate);
+    gs.print(noonDate);
+    var flag = ((new Date(realDate.replace(/-/g, "\/"))) &gt; (new Date(noonDate.replace(/-/g, "\/"))));
+    gs.print(flag);
+    return flag;
+  }
+})</script>
+    <sys_class_name>sys_script_include</sys_class_name>
+    <sys_created_by>admin</sys_created_by>
+    <sys_created_on>2022-07-14 15:18:50</sys_created_on>
+    <sys_effective/>
+    <sys_id>b73b1a3912b04ada82cf1b464a0601ea</sys_id>
+    <sys_mod_count>1</sys_mod_count>
+    <sys_name/>
+    <sys_package/>
+    <sys_policy/>
+    <sys_scope>09fbd6acc21d4dd8b5cc4bc8d396f6a5</sys_scope>
+    <sys_update_name/>
+    <sys_updated_by>admin</sys_updated_by>
+    <sys_updated_on>2022-08-05 10:48:25</sys_updated_on>
+  </sys_script_include>
+</record_update>
