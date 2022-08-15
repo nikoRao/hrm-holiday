@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <record_update table="sys_ui_policy">
   <sys_ui_policy action="INSERT_OR_UPDATE">
-    <active>true</active>
-    <conditions/>
+    <active>false</active>
+    <conditions>""</conditions>
     <description/>
     <global>true</global>
     <inherit>false</inherit>
@@ -27,7 +27,7 @@
     <short_description>加班记录-默认策略</short_description>
     <sys_class_name>sys_ui_policy</sys_class_name>
     <sys_created_by>admin</sys_created_by>
-    <sys_created_on>2022-07-12 22:56:12</sys_created_on>
+    <sys_created_on>2022-08-08 20:51:13</sys_created_on>
     <sys_domain>global</sys_domain>
     <sys_domain_path>/</sys_domain_path>
     <sys_effective/>
@@ -40,7 +40,7 @@
     <sys_scope>09fbd6acc21d4dd8b5cc4bc8d396f6a5</sys_scope>
     <sys_update_name/>
     <sys_updated_by>admin</sys_updated_by>
-    <sys_updated_on>2022-07-13 18:57:29</sys_updated_on>
+    <sys_updated_on>2022-08-12 10:35:00</sys_updated_on>
     <table>x_yunji_lm_overtime</table>
     <ui_type>0</ui_type>
     <view/>

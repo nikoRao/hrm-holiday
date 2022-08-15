@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <record_update table="sys_dictionary">
-  <sys_dictionary action="INSERT_OR_UPDATE">
+  <sys_dictionary action="DELETE">
     <active>true</active>
     <array/>
     <array_denormalized/>
@@ -10,33 +10,33 @@
     <choice>0</choice>
     <choice_field/>
     <choice_table/>
-    <column_label>产检假</column_label>
+    <column_label>状态</column_label>
     <comments/>
     <create_roles/>
-    <default_value>0.0</default_value>
+    <default_value/>
     <defaultsort/>
     <delete_roles/>
-    <dependent/>
-    <dependent_on_field/>
+    <dependent>""</dependent>
+    <dependent_on_field>""</dependent_on_field>
     <display>false</display>
     <dynamic_creation/>
     <dynamic_creation_script/>
     <dynamic_default_value/>
     <dynamic_ref_qual/>
-    <element>antenatal_care_leave</element>
+    <element>status</element>
     <element_reference/>
     <foreign_database/>
     <function_definition/>
     <function_field>false</function_field>
-    <internal_type>double</internal_type>
+    <internal_type>string</internal_type>
     <mandatory>false</mandatory>
-    <max_length/>
-    <name>x_yunji_lm_leave_record</name>
+    <max_length>80</max_length>
+    <name>x_yunji_lm_overtime</name>
     <next_element/>
     <primary>false</primary>
     <read_only>false</read_only>
     <read_roles/>
-    <reference/>
+    <reference>""</reference>
     <reference_cascade_rule/>
     <reference_floats/>
     <reference_key/>
@@ -46,23 +46,23 @@
     <sizeclass/>
     <spell_check/>
     <staged>false</staged>
-    <sys_class_name>sys_dictionary</sys_class_name>
+    <sys_class_name>x_yunji_lm_overtime</sys_class_name>
     <sys_created_by>admin</sys_created_by>
-    <sys_created_on>2022-07-14 10:57:45</sys_created_on>
+    <sys_created_on>2022-07-12 15:47:44</sys_created_on>
     <sys_effective/>
-    <sys_id>66bccf540fcd4b40a1208481c7dba915</sys_id>
+    <sys_id>59338c6469f94efdb779c89641fa0f73</sys_id>
     <sys_mod_count>2</sys_mod_count>
     <sys_name/>
     <sys_package/>
     <sys_policy/>
     <sys_scope>09fbd6acc21d4dd8b5cc4bc8d396f6a5</sys_scope>
-    <sys_update_name>sys_dictionary_x_yunji_lm_leave_record_antenatal_care_leave</sys_update_name>
+    <sys_update_name>sys_dictionary_x_yunji_lm_overtime_status</sys_update_name>
     <sys_updated_by>admin</sys_updated_by>
-    <sys_updated_on>2022-08-10 13:46:59</sys_updated_on>
+    <sys_updated_on>2022-08-12 10:20:00</sys_updated_on>
     <table_reference>false</table_reference>
     <text_index/>
     <unique>false</unique>
-    <use_dependent_field>false</use_dependent_field>
+    <use_dependent_field>true</use_dependent_field>
     <use_dynamic_default/>
     <use_reference_qualifier>simple</use_reference_qualifier>
     <virtual/>

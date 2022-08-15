@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<record_update table="sys_script_client">
+  <sys_script_client action="INSERT_OR_UPDATE">
+    <active>true</active>
+    <applies_extended>false</applies_extended>
+    <condition/>
+    <description/>
+    <field>end_time</field>
+    <global>true</global>
+    <isolate_script>false</isolate_script>
+    <messages/>
+    <name>根据加班时间计算并填充加班时长</name>
+    <order>100</order>
+    <script>function onChange() {
+  console.log('#############111111 ');
+  var s1 = ('' + g_form.getValue('start_time'));
+  var s2 = ('' + g_form.getValue('end_time'));
+  //计算两个时间相差小时
+  var reDate = /\d{4}-\d{1,2}-\d{1,2} /;
+  s1 = new Date((reDate.test(s1) ? s1 : '2018-1-1 ' + s1).replace(/-/g, '/'));
+  s2 = new Date((reDate.test(s2) ? s2 : '2018-1-1 ' + s2).replace(/-/g, '/'));
+  var ms = s2.getTime() - s1.getTime();
+  if (ms &lt; 0) return 0;
+  var diffHours = Math.floor(ms / 1000 / 60 / 60); //小时
+  g_form.setValue("duration", diffHours);
+}</script>
+    <sys_class_name>sys_script_client</sys_class_name>
+    <sys_created_by>admin</sys_created_by>
+    <sys_created_on>2022-08-11 16:15:34</sys_created_on>
+    <sys_domain>global</sys_domain>
+    <sys_domain_path>/</sys_domain_path>
+    <sys_effective/>
+    <sys_id>fc70107df83d41a997b050d4c0f835e0</sys_id>
+    <sys_mod_count>1</sys_mod_count>
+    <sys_name/>
+    <sys_overrides/>
+    <sys_package/>
+    <sys_policy/>
+    <sys_scope>09fbd6acc21d4dd8b5cc4bc8d396f6a5</sys_scope>
+    <sys_update_name/>
+    <sys_updated_by>admin</sys_updated_by>
+    <sys_updated_on>2022-08-12 11:06:59</sys_updated_on>
+    <table>x_yunji_lm_overtime</table>
+    <type>onChange</type>
+    <ui_type>0</ui_type>
+    <view/>
+  </sys_script_client>
+</record_update>

@@ -5,7 +5,7 @@
     <application>ae7a9c9f4e6f4e0a901cac62d4718f04</application>
     <assessment/>
     <device_type/>
-    <filter/>
+    <filter>""</filter>
     <hint/>
     <homepage/>
     <image/>
@@ -14,14 +14,14 @@
     <mobile_title/>
     <mobile_view_name>Mobile</mobile_view_name>
     <name>x_yunji_lm_overtime</name>
-    <order>12.00</order>
+    <order>11.00</order>
     <override_menu_roles>false</override_menu_roles>
     <query/>
     <report/>
-    <roles/>
+    <roles>""</roles>
     <sys_class_name>sys_app_module</sys_class_name>
     <sys_created_by>admin</sys_created_by>
-    <sys_created_on>2022-07-12 22:48:58</sys_created_on>
+    <sys_created_on>2022-08-08 20:50:48</sys_created_on>
     <sys_domain>global</sys_domain>
     <sys_domain_path>/</sys_domain_path>
     <sys_effective/>
@@ -34,7 +34,7 @@
     <sys_scope>09fbd6acc21d4dd8b5cc4bc8d396f6a5</sys_scope>
     <sys_update_name/>
     <sys_updated_by>admin</sys_updated_by>
-    <sys_updated_on>2022-07-12 22:50:52</sys_updated_on>
+    <sys_updated_on>2022-08-12 13:55:13</sys_updated_on>
     <timeline_page/>
     <title>加班申请</title>
     <uncancelable>false</uncancelable>

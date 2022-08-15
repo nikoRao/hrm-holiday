@@ -6,7 +6,7 @@
     <client>true</client>
     <client_script_v2/>
     <comments/>
-    <condition/>
+    <condition>current.getValue("approval_status")!=4 &amp;&amp; current.getValue("approval_status")!=3</condition>
     <form_action>true</form_action>
     <form_button>true</form_button>
     <form_button_v2>false</form_button_v2>
@@ -52,7 +52,8 @@ function startWorkflow() {
     ga.addParam('sysparm_name', 'startDeviceUp');
     ga.addParam('recordId', apply_id);
     ga.getJson(response =&gt; {
-      alert('已发起审批');
+      var gwt = new GwtMessage();
+      gwt.addSuccessMessage("已提交请假申请");
     });
   });
 }</script>
@@ -62,7 +63,7 @@ function startWorkflow() {
     <show_update>true</show_update>
     <sys_class_name>sys_ui_action</sys_class_name>
     <sys_created_by>admin</sys_created_by>
-    <sys_created_on>2022-07-13 17:56:11</sys_created_on>
+    <sys_created_on>2022-08-08 20:51:13</sys_created_on>
     <sys_domain>global</sys_domain>
     <sys_domain_path>/</sys_domain_path>
     <sys_effective/>
@@ -75,7 +76,7 @@ function startWorkflow() {
     <sys_scope>09fbd6acc21d4dd8b5cc4bc8d396f6a5</sys_scope>
     <sys_update_name/>
     <sys_updated_by>admin</sys_updated_by>
-    <sys_updated_on>2022-07-14 20:15:36</sys_updated_on>
+    <sys_updated_on>2022-08-12 14:28:23</sys_updated_on>
     <table>x_yunji_lm_holiday_apply</table>
   </sys_ui_action>
 </record_update>

@@ -24,6 +24,7 @@ initEmployeeHoliday.prototype = Object.extendsObject(AbstractAjaxProcessor, {
     var today = new Date().toJSON().split('T')[0];
     var holidayGrPlus = new GlideRecord('x_yunji_lm_holiday_surplus');
     var holidayGr = new GlideRecord('x_yunji_lm_holiday_rule');
+    holidayGr.addQuery('company_base', '杭州');
     holidayGr.query();
     while (holidayGr.hasNext()) {
       holidayGr.next();
@@ -109,7 +110,7 @@ initEmployeeHoliday.prototype = Object.extendsObject(AbstractAjaxProcessor, {
 });</script>
     <sys_class_name>sys_script_include</sys_class_name>
     <sys_created_by>admin</sys_created_by>
-    <sys_created_on>2022-07-28 13:51:20</sys_created_on>
+    <sys_created_on>2022-08-08 20:51:12</sys_created_on>
     <sys_effective/>
     <sys_id>ea4be5c9119a4da5ac8b91419212f20f</sys_id>
     <sys_mod_count>1</sys_mod_count>
@@ -119,6 +120,6 @@ initEmployeeHoliday.prototype = Object.extendsObject(AbstractAjaxProcessor, {
     <sys_scope>09fbd6acc21d4dd8b5cc4bc8d396f6a5</sys_scope>
     <sys_update_name/>
     <sys_updated_by>admin</sys_updated_by>
-    <sys_updated_on>2022-08-08 09:15:53</sys_updated_on>
+    <sys_updated_on>2022-08-11 17:28:31</sys_updated_on>
   </sys_script_include>
 </record_update>

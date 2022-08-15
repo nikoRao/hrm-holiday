@@ -31,17 +31,25 @@
     <script>function goRepairCheck() {
   const sys_id = current.sys_id;
   const { origin = '' } = window.location || {};
-  const url = `${origin}/nav_to.do?uri=x_yunji_check_repair.do&amp;check_info=${encodeURIComponent(sys_id)}`;
+  var chekPairSysId ="";
+  var gr = new GlideRecord('x_yunji_check_repair');
+  gr.addQuery('check_info', sys_id);
+  console.log("###### 1111111");  
+  gr.query(() =&gt; {
+    console.log("###### 222222");
+    gr.next();
+    chekPairSysId = gr.getValue('sys_id');
+  });
+  const url = `${origin}/nav_to.do?uri=x_yunji_check_repair.do&amp;sys_id=${encodeURIComponent(chekPairSysId)}`;
   open(url);
-}
-</script>
+  }</script>
     <show_insert>true</show_insert>
     <show_multiple_update>false</show_multiple_update>
     <show_query>false</show_query>
     <show_update>true</show_update>
     <sys_class_name>sys_ui_action</sys_class_name>
     <sys_created_by>admin</sys_created_by>
-    <sys_created_on>2022-07-13 10:15:05</sys_created_on>
+    <sys_created_on>2022-08-08 20:51:13</sys_created_on>
     <sys_domain>global</sys_domain>
     <sys_domain_path>/</sys_domain_path>
     <sys_effective/>
@@ -54,7 +62,7 @@
     <sys_scope>09fbd6acc21d4dd8b5cc4bc8d396f6a5</sys_scope>
     <sys_update_name/>
     <sys_updated_by>admin</sys_updated_by>
-    <sys_updated_on>2022-07-14 17:19:28</sys_updated_on>
+    <sys_updated_on>2022-08-12 18:36:52</sys_updated_on>
     <table>x_yunji_check_info</table>
   </sys_ui_action>
 </record_update>

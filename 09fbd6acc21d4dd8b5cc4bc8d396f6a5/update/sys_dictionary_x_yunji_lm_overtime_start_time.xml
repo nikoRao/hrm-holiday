@@ -16,8 +16,8 @@
     <default_value/>
     <defaultsort/>
     <delete_roles/>
-    <dependent/>
-    <dependent_on_field/>
+    <dependent>""</dependent>
+    <dependent_on_field>""</dependent_on_field>
     <display>false</display>
     <dynamic_creation/>
     <dynamic_creation_script/>
@@ -29,40 +29,40 @@
     <function_definition/>
     <function_field>false</function_field>
     <internal_type>glide_date_time</internal_type>
-    <mandatory>false</mandatory>
+    <mandatory>true</mandatory>
     <max_length/>
     <name>x_yunji_lm_overtime</name>
     <next_element/>
     <primary>false</primary>
     <read_only>false</read_only>
     <read_roles/>
-    <reference/>
+    <reference>""</reference>
     <reference_cascade_rule/>
     <reference_floats/>
-    <reference_key/>
+    <reference_key>""</reference_key>
     <reference_qual/>
     <reference_qual_condition/>
     <reference_type/>
     <sizeclass/>
     <spell_check/>
     <staged>false</staged>
-    <sys_class_name>sys_dictionary</sys_class_name>
+    <sys_class_name>x_yunji_lm_overtime</sys_class_name>
     <sys_created_by>admin</sys_created_by>
     <sys_created_on>2022-07-14 15:32:59</sys_created_on>
     <sys_effective/>
     <sys_id>aa923a22d5d54595b467359b4f2e1d8a</sys_id>
-    <sys_mod_count>1</sys_mod_count>
+    <sys_mod_count>2</sys_mod_count>
     <sys_name/>
     <sys_package/>
     <sys_policy/>
     <sys_scope>09fbd6acc21d4dd8b5cc4bc8d396f6a5</sys_scope>
     <sys_update_name>sys_dictionary_x_yunji_lm_overtime_start_time</sys_update_name>
     <sys_updated_by>admin</sys_updated_by>
-    <sys_updated_on>2022-07-14 15:32:59</sys_updated_on>
+    <sys_updated_on>2022-08-12 10:30:40</sys_updated_on>
     <table_reference>false</table_reference>
     <text_index/>
     <unique>false</unique>
-    <use_dependent_field>false</use_dependent_field>
+    <use_dependent_field>true</use_dependent_field>
     <use_dynamic_default/>
     <use_reference_qualifier>simple</use_reference_qualifier>
     <virtual/>
